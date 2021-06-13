@@ -57,6 +57,23 @@ class RegistrationController extends AbstractController
                 $user->setCV($newFilename);
             }
 
+            $photo = $form->get('Photo')->getData();
+
+            if ($photo) {
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$photo->guessExtension();
+                try {
+                    $photo->move(
+                        $this->getParameter('photo_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $user->setPhoto($newFilename);
+            }
+
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
