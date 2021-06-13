@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OffreEmploi index{% endblock %}
+
+{% block body %}
+    <!-- Page Heading Section Start -->
+    <div class="page-heading-section section bg-parallax" data-bg-image="assets/images/bg/bg-1.jpg" data-overlay="50">
+        <div class="container">
+            <div class="page-heading-content text-center">
+                <h3 class="title">Browse Jobs</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Jobs</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- Page Heading Section End -->
+    <h1>OffreEmploi index</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_offre</th>
+                <th>Description</th>
+                <th>Date_Debut</th>
+                <th>Date_Fin</th>
+                <th>Exigences</th>
+                <th>Nbr_Places</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre_emploi in offre_emplois %}
+            <tr>
+                <td>{{ offre_emploi.id }}</td>
+                <td>{{ offre_emploi.NomOffre }}</td>
+                <td>{{ offre_emploi.Description }}</td>
+                <td>{{ offre_emploi.DateDebut ? offre_emploi.DateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ offre_emploi.DateFin ? offre_emploi.DateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ offre_emploi.Exigences }}</td>
+                <td>{{ offre_emploi.NbrPlaces }}</td>
+                <td>
+                    <a href="{{ path('offre_emploi_show', {'id': offre_emploi.id}) }}">show</a>
+                    <a href="{{ path('offre_emploi_edit', {'id': offre_emploi.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('offre_emploi_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <!-- Page Heading Section Start -->
+    <div class="page-heading-section section bg-parallax" data-bg-image="assets/images/bg/bg-1.jpg" data-overlay="50">
+        <div class="container">
+            <div class="page-heading-content text-center">
+                <h3 class="title">Mon profil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Accueil</a></li>
+                    {# <li class="breadcrumb-item active">Mon profil</li> #}
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- Page Heading Section End -->
+    <table class="table">
+        <tbody>
+            <tr>
+                <img src="{{ asset('/uploads/photo/' ~ user.Photo) }}" alt="" width="150">
+            </tr>
+            <tr>
+                <th>Nom_utilisateur</th>
+                <td>{{ user.NomUtilisateur }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>CIN</th>
+                <td>{{ user.CIN }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ user.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ user.Type }}</td>
+            </tr>
+            <tr>
+                <th>CV</th>
+                <td><a href="{{ asset('uploads/CV/' ~ user.CV) }}">Voir le CV</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

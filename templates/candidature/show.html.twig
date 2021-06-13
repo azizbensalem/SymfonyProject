@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature{% endblock %}
+
+{% block body %}
+    <h1>Candidature</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ candidature.id }}</td>
+            </tr>
+            <tr>
+                <th>Date_Creation</th>
+                <td>{{ candidature.DateCreation ? candidature.DateCreation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtatCandidature</th>
+                <td>{{ candidature.etatCandidature ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('candidature_index') }}">back to list</a>
+{% endblock %}
